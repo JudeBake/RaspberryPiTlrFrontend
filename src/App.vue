@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <h1>Raspberry Pi Time-Lapse Recoder App</h1>
     <Home/>
   </div>
 </template>
 
 <script>
-import Home from './components/Home.vue';
+import Home from './components/Home/Home.vue';
 
 export default {
   name: 'app',
