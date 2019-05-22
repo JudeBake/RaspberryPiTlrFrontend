@@ -15,7 +15,8 @@
     "mjpeg-consumer": "^1.1.0",
     "moment": "^2.24.0",
     "request": "^2.88.0",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vuejs-datetimepicker": "^1.1.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

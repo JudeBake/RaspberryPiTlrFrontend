@@ -5,7 +5,12 @@
         <LiveFeed :path="liveFeedPath" title="Live Feed" :width="720" :height="480"/>
       </b-col>
       <b-col>
-        <RecordingControls v-on:onStateChange="onStateChange"/>
+        <RecordingControls
+            v-if="recorderStatus.state == 'Idle'"
+            v-on:onStatusChange="onStatusChange"/>
+        <RecorderProgress
+            v-if="recorderStatus.state == 'Recording'"
+            :recorderStatus="recorderStatus"/>
       </b-col>
     </b-row>
   </b-container>
@@ -14,6 +19,7 @@
 <script>
 import LiveFeed from '../LiveFeed/LiveFeed.vue';
 import RecordingControls from '../RecordingControls/RecordingControls.vue';
+import RecorderProgress from '../RecordingProgress/RecordingProgress.vue';
 import data from '../../data/data';
 
 export default {
@@ -21,6 +27,10 @@ export default {
   components: {
     LiveFeed,
     RecordingControls,
+    RecorderProgress,
+  },
+  props: {
+    recorderStatus: Object,
   },
   computed: {
     liveFeedPath() {
@@ -28,8 +38,8 @@ export default {
     },
   },
   methods: {
-    onStateChange: function onStateChange(newState) {
-      this.$emit('onStateChange', newState);
+    onStatusChange: function onStatusChange(newStatus) {
+      this.$emit('onStatusChange', newStatus);
     },
   },
 };

@@ -19,18 +19,9 @@
         <div class="mt-2">Value: {{ frameDelay }}</div>
       </b-form-group>
       <b-form-group id="timelapse-end-group" label="End Time Selection">
-        <label for="timelapse-end-date">Date</label>
-        <b-form-input
-            id="timelapse-end-dtae"
-            type="date"
-            v-model="timelapseEndDate"/>
-        <label for="timelapse-end-time">Time</label>
-        <b-form-input
-            id="timelapse-end-time"
-            type="time"
-            v-model="timelapseEndTime"/>
+        <Datepicker format="YYYY-MM-DD H:i:s" v-model="timelapseEnd"/>
       </b-form-group>
-      <b-button v-if="isTimelapseNameValid && timelapseEndDate && timelapseEndTime"
+      <b-button v-if="isTimelapseNameValid && isTimelapseEndValid"
           variant="success" @click="onRecord">REC</b-button>
     </b-form>
   </b-card>
@@ -39,22 +30,29 @@
 <script>
 import request from 'request';
 import moment from 'moment';
+// eslint-disable-next-line
+import Datepicker from 'vuejs-datetimepicker';
 import Validator from '../../modules/Validator/Validator';
 import data from '../../data/data';
 
 export default {
   name: 'RecordingControls',
+  components: {
+    Datepicker,
+  },
   computed: {
     isTimelapseNameValid() {
       return Validator.validateTimelapseName(this.timelapseName);
+    },
+    isTimelapseEndValid() {
+      return Validator.validateTimelapseEnd(this.timelapseEnd);
     },
   },
   data() {
     return {
       timelapseName: '',
       frameDelay: 1,
-      timelapseEndDate: '',
-      timelapseEndTime: '',
+      timelapseEnd: moment().format('YYYY-MM-DD HH:mm:ss'),
     };
   },
   methods: {
@@ -74,16 +72,16 @@ export default {
         if (err) {
           // eslint-disable-next-line
           console.log(err);
-          this.$emit('onStateChange', data.recorderStateStrs.notConnected);
+          this.$emit('onStateChange', { state: data.recorderStateStrs.notConnected });
         } else {
           // eslint-disable-next-line
-          console.log(`PUT /recording/start response: ${body.result}`);
-          this.$emit('onStateChange', data.recorderStateStrs.recording);
+          console.log(`Recording request: ${body.result}`);
+          this.$emit('onStateChange', { state: data.recorderStateStrs.recording });
         }
       });
     },
     calculateFrameCount: function calculateFrameCount() {
-      const timelapseDuration = Math.round(moment(`${this.timelapseEndDate}T${this.timelapseEndTime}`).diff(moment()) / 1000);
+      const timelapseDuration = Math.round(moment(this.timelapseEnd).diff(moment()) / 1000);
       // eslint-disable-next-line
       console.log(`Time-lapse duration: ${timelapseDuration}`);
 

@@ -8,12 +8,12 @@ export default {
   recorderStateVariantMap: ['danger', 'success', 'warning'],
   recorderInfo: {
     name: 'Time-Lapse Recorder',
-    ip: '192.168.1.22',
+    ip: '192.168.1.17',
   },
   recorderApi: {
-    url: 'http://192.168.1.22:5000',
+    url: 'http://192.168.1.17:5000',
     paths: {
-      recorderState: '/state',
+      recorderStatus: '/status',
       liveFeed: '/video_feed',
       startRecording: '/recording/start',
       stopRecording: '/recording/stop',
