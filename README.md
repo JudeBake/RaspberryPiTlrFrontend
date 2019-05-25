@@ -2,6 +2,17 @@
 Raspberry Pi Time-Lapse Recorder Frontend. This is the frontend component of the
 Raspberry Pi Time-Lapse Recorder application. Backend repo is [here](https://github.com/JudeBake/RaspberryPiTlrBackend "Backend Repo")
 
+## Clone the project
+```
+git clone git@github.com:JudeBake/RaspberryPiTlrFrontend.git
+```
+
+or
+
+```
+git clone https://github.com/JudeBake/RaspberryPiTlrFrontend.git
+```
+
 ## Project setup
 ```
 npm install
