@@ -2,5 +2,6 @@ import moment from 'moment';
 
 export default {
   validateTimelapseName: outputName => outputName !== null && outputName !== '',
-  validateTimelapseEnd: timelapseEnd => moment(timelapseEnd).diff(moment()) > 0,
+  validateTimelapseEnd: (timelapseEndDate, timelapseEndTime) => moment(timelapseEndDate)
+    .hour(timelapseEndTime.HH).minute(timelapseEndTime.mm).diff(moment()) > 0,
 };

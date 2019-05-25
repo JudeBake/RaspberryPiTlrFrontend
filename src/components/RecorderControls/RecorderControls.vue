@@ -5,7 +5,9 @@
         <LiveFeed :path="liveFeedPath" title="" :width="1280" :height="720"/>
       </b-tab>
       <b-tab title="Recording Interface">
-        <RecordingUI :recorderStatus="recorderStatus" v-on:onStatusChange="onStatusChange"/>
+        <RecordingUI
+            :recorderWebSocket="recorderWebSocket"
+            :recorderStatus="recorderStatus"/>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -23,16 +25,12 @@ export default {
     RecordingUI,
   },
   props: {
+    recorderWebSocket: Object,
     recorderStatus: Object,
   },
   computed: {
     liveFeedPath() {
       return `${data.recorderApi.url}${data.recorderApi.paths.liveFeed}`;
-    },
-  },
-  methods: {
-    onStatusChange: function onStatusChange(newStatus) {
-      this.$emit('onStatusChange', newStatus);
     },
   },
 };

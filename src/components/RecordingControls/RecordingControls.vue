@@ -6,6 +6,7 @@
             id="timelapse-name"
             :state="isTimelapseNameValid"
             placeholder="Set a time-lapse name"
+            @input="restrictSpaceSpecial"
             v-model="timelapseName"/>
       </b-form-group>
       <b-form-group id="delay-frame-group" label="Delay between frames (s)" label-for="delay-frame">
@@ -19,7 +20,12 @@
         <div class="mt-2">Value: {{ frameDelay }}</div>
       </b-form-group>
       <b-form-group id="timelapse-end-group" label="End Time Selection">
-        <Datepicker format="YYYY-MM-DD H:i:s" v-model="timelapseEnd"/>
+        <Datepicker
+            class="text-center"
+            placeholder="Select Date"
+            v-model="timelapseEndDate">
+        </Datepicker>
+        <VueTimepicker class="mt-2" :minute-interval="5" v-model="timelapseEndTime"/>
       </b-form-group>
       <b-button v-if="isTimelapseNameValid && isTimelapseEndValid"
           variant="success" @click="onRecord">REC</b-button>
@@ -28,68 +34,77 @@
 </template>
 
 <script>
-import request from 'request';
 import moment from 'moment';
 // eslint-disable-next-line
-import Datepicker from 'vuejs-datetimepicker';
+import Datepicker from 'vuejs-datepicker';
+// eslint-disable-next-line
+import VueTimepicker from 'vuejs-timepicker'
 import Validator from '../../modules/Validator/Validator';
-import data from '../../data/data';
 
 export default {
   name: 'RecordingControls',
   components: {
     Datepicker,
+    VueTimepicker,
+  },
+  props: {
+    recorderWebSocket: Object,
   },
   computed: {
     isTimelapseNameValid() {
       return Validator.validateTimelapseName(this.timelapseName);
     },
     isTimelapseEndValid() {
-      return Validator.validateTimelapseEnd(this.timelapseEnd);
+      return Validator.validateTimelapseEnd(this.timelapseEndDate, this.timelapseEndTime);
+    },
+    timelapseEnd() {
+      return moment(this.timelapseEndDate).hour(this.timelapseEndTime.HH)
+        .minute(this.timelapseEndTime.mm);
     },
   },
   data() {
     return {
       timelapseName: '',
       frameDelay: 1,
-      timelapseEnd: moment().format('YYYY-MM-DD HH:mm:ss'),
+      timelapseEndDate: moment().format(),
+      timelapseEndTime: { HH: moment().format('HH'), mm: moment().format('mm') },
     };
   },
   methods: {
+    restrictSpaceSpecial: function restrictSpaceSpecial(e) {
+      this.timelapseName = e.replace(/\s/g, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    },
     onRecord: function onRecord() {
       // eslint-disable-next-line
       console.log('On Record');
 
-      const totalFrameCount = this.calculateFrameCount();
-
-      const recordRequest = {
-        url: `${data.recorderApi.url}${data.recorderApi.paths.startRecording}`,
-        method: 'PUT',
-        json: { timelapseName: this.timelapseName, totalFrameCount, frameDelay: this.frameDelay },
+      const timelapseInfo = {
+        name: this.timelapseName,
+        capturingEndTime: this.timelapseEnd.format('YYYY-MM-DD HH:mm:00'),
+        frameDelay: this.frameDelay,
       };
 
-      request(recordRequest, (err, response, body) => {
-        if (err) {
-          // eslint-disable-next-line
-          console.log(err);
-          this.$emit('onStateChange', { state: data.recorderStateStrs.notConnected });
+      this.recorderWebSocket.emit('startRecording', timelapseInfo, (response) => {
+        if (response.result === 'success') {
+          this.fireSuccessToast(response.message);
         } else {
-          // eslint-disable-next-line
-          console.log(`Recording request: ${body.result}`);
-          this.$emit('onStateChange', { state: data.recorderStateStrs.recording });
+          this.fireFailureToast(response.message);
         }
       });
     },
-    calculateFrameCount: function calculateFrameCount() {
-      const timelapseDuration = Math.round(moment(this.timelapseEnd).diff(moment()) / 1000);
-      // eslint-disable-next-line
-      console.log(`Time-lapse duration: ${timelapseDuration}`);
-
-      const totalFrameCount = Math.round(timelapseDuration / this.frameDelay);
-      // eslint-disable-next-line
-      console.log(`Total frame count: ${totalFrameCount}`);
-
-      return totalFrameCount;
+    fireSuccessToast: function fireSuccessToast(message) {
+      this.$bvToast.toast(message, {
+        title: 'Success',
+        variant: 'success',
+        autoHideDelay: 10000,
+      });
+    },
+    fireFailureToast: function fireFailureToast(message) {
+      this.$bvToast.toast(message, {
+        title: 'Failure',
+        variant: 'danger',
+        autoHideDelay: 10000,
+      });
     },
   },
 };

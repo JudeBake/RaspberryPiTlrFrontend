@@ -7,7 +7,7 @@
       <b-col>
         <RecordingControls
             v-if="recorderStatus.state == 'Idle'"
-            v-on:onStatusChange="onStatusChange"/>
+            :recorderWebSocket="recorderWebSocket"/>
         <RecorderProgress
             v-if="recorderStatus.state == 'Recording'"
             :recorderStatus="recorderStatus"/>
@@ -30,16 +30,12 @@ export default {
     RecorderProgress,
   },
   props: {
+    recorderWebSocket: Object,
     recorderStatus: Object,
   },
   computed: {
     liveFeedPath() {
       return `${data.recorderApi.url}${data.recorderApi.paths.liveFeed}`;
-    },
-  },
-  methods: {
-    onStatusChange: function onStatusChange(newStatus) {
-      this.$emit('onStatusChange', newStatus);
     },
   },
 };
