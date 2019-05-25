@@ -85,18 +85,9 @@ export default {
       };
 
       this.recorderWebSocket.emit('startRecording', timelapseInfo, (response) => {
-        if (response.result === 'success') {
-          this.fireSuccessToast(response.message);
-        } else {
+        if (response.result === 'failure') {
           this.fireFailureToast(response.message);
         }
-      });
-    },
-    fireSuccessToast: function fireSuccessToast(message) {
-      this.$bvToast.toast(message, {
-        title: 'Success',
-        variant: 'success',
-        autoHideDelay: 10000,
       });
     },
     fireFailureToast: function fireFailureToast(message) {

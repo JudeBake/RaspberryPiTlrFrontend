@@ -36,6 +36,7 @@ export default {
   name: 'RecordingProgress',
   props: {
     recorderStatus: Object,
+    recorderWebSocket: Object,
   },
   computed: {
     displayProgressBar() {
@@ -60,11 +61,13 @@ export default {
       // eslint-disable-next-line
       console.log('On Process');
       this.$bvModal.hide('stopOptions');
+      this.recorderWebSocket.emit('stopAndProcess');
     },
     onDiscard: function onDiscard() {
       // eslint-disable-next-line
       console.log('On Discard');
       this.$bvModal.hide('stopOptions');
+      this.recorderWebSocket.emit('stopAndDiscard');
     },
   },
 };

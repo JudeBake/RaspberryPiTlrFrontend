@@ -10,7 +10,8 @@
             :recorderWebSocket="recorderWebSocket"/>
         <RecorderProgress
             v-if="recorderStatus.state == 'Recording'"
-            :recorderStatus="recorderStatus"/>
+            :recorderStatus="recorderStatus"
+            :recorderWebSocket="recorderWebSocket"/>
       </b-col>
     </b-row>
   </b-container>
