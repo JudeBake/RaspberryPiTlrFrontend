@@ -1,6 +1,6 @@
 <template>
   <b-card v-bind:title="title">
-    <img :src="path" v-bind:width="width" v-bind:height="height" />
+    <b-img :src="path" fluid-grow/>
   </b-card>
 </template>
 
@@ -10,8 +10,6 @@ export default {
   props: {
     path: String,
     title: String,
-    width: Number,
-    height: Number,
   },
 };
 </script>

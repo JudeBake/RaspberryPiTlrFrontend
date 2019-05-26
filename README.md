@@ -41,10 +41,17 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Contribution
+Any body is welcome to contribute. For any questions you can contact me [julien.bacon.1@gmail.com](mailto:julien.bacon.1@gmail.com)
+
 ## TO-DO List
 * Move camera stuff in its own module
-* Adding support for managing and downloading time-lapses
+* ~~Adding support for managing and downloading time-lapses~~
 * Adding support for adjusing camera settings
 * Adding documentation for deployment
 * Adding tests
-* Adding documentation for contributing
+* ~~Adding documentation for contributing~~
+* Addingdiffeerent option for recording setting
+    * Total timelapse duration instead of frame delay
+    * Ultimaker 3 API
+    * ...

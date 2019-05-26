@@ -2,7 +2,7 @@
   <b-container fluid>
     <b-row>
       <b-col>
-        <LiveFeed :path="liveFeedPath" title="Live Feed" :width="720" :height="480"/>
+        <LiveFeed :path="liveFeedPath" title="Live Feed"/>
       </b-col>
       <b-col>
         <RecordingControls
