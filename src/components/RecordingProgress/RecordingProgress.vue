@@ -19,7 +19,7 @@
         v-b-modal.stopOptions>
       STOP
     </b-button>
-    <b-modal id="stopOptions" title="Process or Discrad ?">
+    <b-modal id="stopOptions" title="Process or Discrad?">
       <template slot="default">
         <p>Do you want to process or discard the captured frames?</p>
       </template>
