@@ -2,12 +2,15 @@
   <b-card no-body>
     <b-tabs card fill>
       <b-tab title="Live Feed" active>
-        <LiveFeed :path="liveFeedPath" title="" :width="1280" :height="720"/>
+        <LiveFeed :path="liveFeedPath" title=""/>
       </b-tab>
-      <b-tab title="Recording Interface">
-        <RecordingUI
+      <b-tab title="Recording">
+        <RecordingTab
             :recorderWebSocket="recorderWebSocket"
             :recorderStatus="recorderStatus"/>
+      </b-tab>
+      <b-tab title="Managing">
+        <ManagingTab :recorderWebSocket="recorderWebSocket"/>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -15,14 +18,16 @@
 
 <script>
 import LiveFeed from '../LiveFeed/LiveFeed.vue';
-import RecordingUI from './RecordingUI.vue';
+import RecordingTab from '../RecordingTab/RecordingTab.vue';
+import ManagingTab from '../ManagingTab/ManagingTab.vue';
 import data from '../../data/data';
 
 export default {
   name: 'RecorderControls',
   components: {
     LiveFeed,
-    RecordingUI,
+    RecordingTab,
+    ManagingTab,
   },
   props: {
     recorderWebSocket: Object,
