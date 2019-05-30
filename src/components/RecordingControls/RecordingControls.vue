@@ -65,7 +65,7 @@ export default {
   data() {
     return {
       timelapseName: '',
-      frameDelay: 1,
+      frameDelay: '1',
       timelapseEndDate: moment().format(),
       timelapseEndTime: { HH: moment().format('HH'), mm: moment().format('mm') },
     };
@@ -81,7 +81,7 @@ export default {
       const timelapseInfo = {
         name: this.timelapseName,
         capturingEndTime: this.timelapseEnd.format('YYYY-MM-DD HH:mm:00'),
-        frameDelay: this.frameDelay,
+        frameDelay: parseInt(this.frameDelay, 10),
       };
 
       this.recorderWebSocket.emit('startRecording', timelapseInfo, (response) => {
