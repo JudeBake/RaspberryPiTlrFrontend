@@ -42,7 +42,15 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Contribution
-Any body is welcome to contribute. For any questions you can contact me [julien.bacon.1@gmail.com](mailto:julien.bacon.1@gmail.com)
+Any body is welcome to contribute.
+
+Please refer to the following docs for contributing:
+* [Code of Conduct]
+* [Contributing Guide Lines]
+* [Bug Report Template]
+* [Feature Request Template]
+
+For any questions you can contact me [julien.bacon.1@gmail.com](mailto:julien.bacon.1@gmail.com)
 
 ## TO-DO List
 * Move camera stuff in its own module
