@@ -27,13 +27,13 @@ In short, when you submit code changes, your submissions are understood to be un
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
 
 ## Write bug reports with detail.
-[Bug Report Template]
+[Bug Report Template](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/ISSUE_TEMPLATE/bug_report.md)
 
 ## Request features using Github's [issues](https://github.com/JudeBake/RaspberryPiTlrFrontend/issues)
 We use GitHub issues to track public features request. Request a feature by [opening a new issue](); it's that easy!
 
 ## Write feature request with detail.
-[Feature Request Template]
+[Feature Request Template](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/ISSUE_TEMPLATE/feature_request.md)
 
 ## Use a Consistent Coding Style
 TODO: Define coding standard

@@ -45,12 +45,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 Any body is welcome to contribute.
 
 Please refer to the following docs for contributing:
-* [Code of Conduct]
-* [Contributing Guide Lines]
-* [Bug Report Template]
-* [Feature Request Template]
+* [Code of Conduct](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/CODE_OF_CONDUCT.md)
+* [Contributing Guide Lines](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/CONTRIBUTING.md)
+* [Bug Report Template](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/ISSUE_TEMPLATE/bug_report.md)
+* [Feature Request Template](https://github.com/JudeBake/RaspberryPiTlrFrontend/tree/master/.github/ISSUE_TEMPLATE/feature_request.md)
 
-For any questions you can contact me [julien.bacon.1@gmail.com](mailto:julien.bacon.1@gmail.com)
+For any questions you can contact me at [julien.bacon.1@gmail.com](mailto:julien.bacon.1@gmail.com)
 
 ## TO-DO List
 * Move camera stuff in its own module
